@@ -12,6 +12,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { CommonModule } from "@angular/common";
 import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
     NavBarComponent,
     LogoutComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     MDBBootstrapModule.forRoot(),

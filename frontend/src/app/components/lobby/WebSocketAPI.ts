@@ -1,7 +1,6 @@
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
-import { LobbyComponent } from "./lobby.component";
-
+import { LobbyComponent } from "./lobby.component"
 
 export class WebSocketAPI {
   webSocketEndPoint: string = 'http://localhost:8080/ws';

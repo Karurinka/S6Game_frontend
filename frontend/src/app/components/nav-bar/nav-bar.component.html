@@ -17,6 +17,10 @@
         <li><a class="nav-link" [routerLink]="['/register']">Register</a>
         </li>
       </div>
+      <div *ngIf="!authenticationService.userValue">
+        <li><a class="nav-link" [routerLink]="['/lobby']">Lobby</a>
+        </li>
+      </div>
       <div *ngIf="authenticationService.userValue">
         <li>
           <a class="nav-link" [routerLink]="['/logout']">Logout</a>
@@ -25,3 +29,4 @@
     </ul>
   </div>
 </nav>
+<br>
