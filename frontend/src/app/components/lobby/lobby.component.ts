@@ -35,6 +35,10 @@ export class LobbyComponent implements OnInit {
 
 
   ngOnInit() {
+    let test: Lobby = new Lobby();
+    test.name = "test";
+    this.lobbyService.createLobby(test);
+
     this.route.paramMap.subscribe(data => {
       this.lobbyService.getLobby(data.get('lobbyName'))
         .pipe(first())
