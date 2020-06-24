@@ -1,33 +1,41 @@
-<div id="main-content" class="container">
-
-  <div class="row">
-    <div class="col-md-12">
-      {{ greeting }}
+<div class="container">
+  <div class="card border-primary mb-3 center-block" style="max-width: 60rem ">
+    <div class="card-header" style="text-align: center">{{this.lobby.name}}</div>
+    <div class="card-body">
+      <p>Send message </p>
+      <div *ngIf="loading">
+        <form [formGroup]="chatForm" (ngSubmit)="sendMessage(chatForm.value)">
+          <div>
+            <label for="message">
+              message
+            </label>
+            <input id="message" type="text" formControlName="message">
+          </div>
+          <button class="button" type="submit">Send message</button>
+        </form>
+      </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-6">
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="connect">WebSocket connection:</label>
-          <button (click)="connect()" class="btn btn-default" type="submit">Connect</button>
-          <button (click)="disconnect()" class="btn btn-default" type="submit" disabled="disabled">Disconnect
-          </button>
-        </div>
-      </form>
+  <div class="card border-primary mb-3 center-block" style="max-width: 60rem ">
+    <div class="card-header" style="text-align: center"> {{this.lobby.name}} Messages</div>
+    <div class="card-body">
+      <div *ngFor="let message of webSocketAPI.messages">
+        <p>{{message}}</p>
+      </div>
     </div>
-    <div class="col-md-6">
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="name">Message: </label>
-          <input type="text" [(ngModel)]="name" class="form-control" name="name"> <br>
-        </div>
-        <button (click)="sendMessage()" class="btn btn-default" type="submit">Send</button>
-      </form>
-    </div>
+  </div>
 
-    <p> {{ greeting }}</p>
+  <div class="card border-primary mb-3 center-block" style="max-width: 60rem ">
+    <div class="card-header" style="text-align: center"> Find lobby </div>
+    <div class="card-body">
+      <form [formGroup]="findLobby" (ngSubmit)="findLobby(lobbyForm.value)">
+      <div>
+        <input id="findguild" type="text" formControlName="findguild">
+      </div>
+        <button class="button" type="submit">Find lobby</button>
+      </form>
+    </div>
   </div>
 
 </div>

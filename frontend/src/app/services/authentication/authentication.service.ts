@@ -6,36 +6,53 @@ import { map } from 'rxjs/operators';
 import { environment } from "../../../environments/environment";
 import { Router } from "@angular/router";
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}
+
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
-  private userSubject: BehaviorSubject<User>;
-  public user: Observable<User>;
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
 
   constructor(private router: Router,
               private http: HttpClient) {
 
-    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
-    this.user = this.userSubject.asObservable();
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
   public get userValue(): User {
-    return this.userSubject.value;
+    return this.currentUserSubject.value;
   }
 
   login(username, password) {
-    return this.http.post<any>(`${environment.authUrl}/users/login`, {username: username, password: password})
-      .pipe(map(user => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('user', JSON.stringify(user));
-        this.userSubject.next(user);
-        return user;
+    return this.http.post<any>(`${environment.authUrl}/users/login`, { username, password}, httpOptions)
+      .pipe(map(receivedUser => {
+        console.log(receivedUser);
+        localStorage.setItem('currentUser', JSON.stringify(receivedUser));
+        this.currentUserSubject.next(receivedUser);
+        return receivedUser;
+      }));
+  }
+
+  update(user: User) {
+    return this.http.post<User>(`${environment.authUrl}/user/update`, user, httpOptions)
+      .pipe(map(receivedUser => {
+        console.log('updated user =' + receivedUser);
+        localStorage.setItem('currentUser', JSON.stringify(receivedUser));
+        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        this.currentUser = this.currentUserSubject.asObservable();
+        return receivedUser;
       }));
   }
 
   logout() {
     // remove user from local storage and set current user to null
-    localStorage.removeItem('user');
-    this.userSubject.next(null);
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
     this.router.navigate(['/account/login']);
   }
 }

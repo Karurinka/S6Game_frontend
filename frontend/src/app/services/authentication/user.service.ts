@@ -2,7 +2,9 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from "../../../environments/environment";
-import {AuthenticationService} from "./authentication.service";
+import { AuthenticationService } from "./authentication.service";
+import { BehaviorSubject, Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -12,25 +14,23 @@ const httpOptions = {
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+  json: string;
+
   constructor(private http: HttpClient,
               private authenticationService: AuthenticationService) { }
-
-  json: string;
 
   getAll() {
     return this.http.get<User[]>(`\`${environment.authUrl}/users`,httpOptions);
   }
 
   register(user: User) {
-    this.json = JSON.stringify(user);
-    return this.http.post(`${environment.authUrl}/users/sign-up`, this.json, httpOptions);
+    return this.http.post(`${environment.authUrl}/users/sign-up`, user, httpOptions);
   }
 
   delete(id: number) {
-    return this.http.delete(`${environment.authUrl}/users/${id}`,httpOptions);
+    return this.http.delete(`${environment.authUrl}/users/${id}`, httpOptions);
   }
 
-  getGuestToken(){
-    return this.http.get<any>(`${environment.authUrl}/users/getGuestToken`, httpOptions);
-  }
 }

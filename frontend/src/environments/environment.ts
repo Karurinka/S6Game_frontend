@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080',
-  authUrl: 'http://localhost:8081'
+  //baseUrl: 'http://localhost:8080',
+  authUrl: 'http://20.50.250.38:8081',
+  lobbyUrl: 'http://20.50.248.145:8082'
 };
 /*
  * For easier debugging in development mode, you can import the following file
