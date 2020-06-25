@@ -29,15 +29,15 @@
   <div class="card border-primary mb-3 center-block" style="max-width: 60rem ">
     <div class="card-header" style="text-align: center"> Find lobby </div>
     <div class="card-body">
-      <form [formGroup]="findLobby" (ngSubmit)="findLobby(lobbyForm.value)">
+      <form [formGroup]="lobbyForm" (ngSubmit)="findLobby(lobbyForm.value)">
       <div>
-        <input id="findguild" type="text" formControlName="findguild">
+        <input id="findLobby" type="text" formControlName="findLobby">
       </div>
         <br>
         <button class="btn btn-primary">Search for lobby </button>
       </form>
     </div>
   </div>
-
 </div>
+
 <router-outlet></router-outlet>

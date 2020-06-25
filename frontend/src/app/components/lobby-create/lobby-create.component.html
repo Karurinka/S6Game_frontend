@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="card border-primary mb-3 center-block" style="max-width: 60rem ">
+    <div class="card-header" style="text-align: center">Create lobby</div>
+    <div class="card-body">
+      <div>
+        <label> Lobby name: </label>
+        <input type="text" [(ngModel)]="lobby.name">
+        <br>
+        <input type="button" class="btn btn-success" value="Submit" (click)="createLobby()" />
+      </div>
+
+    </div>
+  </div>
+</div>

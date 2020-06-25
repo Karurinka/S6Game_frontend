@@ -6,6 +6,7 @@ import { RegisterComponent } from "./components/register/register.component";
 import { LoginComponent } from "./components/login/login.component";
 import { LogoutComponent } from "./components/logout/logout.component";
 import { HomeComponent } from "./components/home/home.component";
+import { LobbyCreateComponent } from "./components/lobby-create/lobby-create.component";
 
 
 const routes: Routes = [
@@ -31,7 +32,11 @@ const routes: Routes = [
     component: LogoutComponent
   },
   {
-    path: 'lobby',
+    path: 'createlobby',
+    component: LobbyCreateComponent
+  },
+  {
+    path: 'lobby/:lobbyName',
     component: LobbyComponent
   },
   {

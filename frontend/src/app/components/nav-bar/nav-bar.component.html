@@ -17,8 +17,8 @@
         <li><a class="nav-link" [routerLink]="['/register']">Register</a>
         </li>
       </div>
-      <div *ngIf="!authenticationService.userValue">
-        <li><a class="nav-link" [routerLink]="['/lobby']">Lobby</a>
+      <div *ngIf="authenticationService.userValue">
+        <li><a class="nav-link" [routerLink]="['/createlobby']">Lobby</a>
         </li>
       </div>
       <div *ngIf="authenticationService.userValue">
