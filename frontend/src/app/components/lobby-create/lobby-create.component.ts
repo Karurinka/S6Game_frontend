@@ -14,6 +14,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 export class LobbyCreateComponent implements OnInit {
 
   lobby: Lobby;
+  loading = false;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
@@ -23,19 +24,17 @@ export class LobbyCreateComponent implements OnInit {
   }
 
   createLobby() {
+    this.loading = true;
     this.lobby.owner = this.authenticationService.userValue;
     const user = this.authenticationService.userValue;
     console.log(this.lobby);
     this.lobbyService.createLobby(this.lobby)
       .pipe(first())
       .subscribe(data => {
-        console.log("here 2");
         user.lobbyId = data.id;
         user.lobbyName = data.name;
-        console.log("here 3");
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.authenticationService.updateVariables();
-        console.log("here 4");
         this.router.navigate(['/lobby/' + this.lobby.name])
       })
   }

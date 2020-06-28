@@ -5,7 +5,12 @@
       <div>
         <label> Lobby name: </label> &nbsp;
         <input type="text" [(ngModel)]="lobby.name"> &nbsp;
-        <input type="button" class="btn btn-primary" value="Create lobby" (click)="createLobby()" />
+        <div class="form-group">
+          <button [disabled]="loading" class="btn btn-primary" value="Create lobby" (click)="createLobby()">
+            Create lobby
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

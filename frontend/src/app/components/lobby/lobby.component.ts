@@ -54,6 +54,9 @@ export class LobbyComponent implements OnInit {
     helloMessage.message = message;
     const user = this.authenticationService.userValue;
     helloMessage.messageOwner = user;
+
+    this.lobby.id = user.lobbyId;
+    helloMessage.lobbyId = this.lobby;
     this.webSocketAPI._send(helloMessage);
   }
 
