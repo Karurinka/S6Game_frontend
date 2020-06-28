@@ -28,6 +28,11 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
+  updateVariables(){
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+
   login(username, password) {
     return this.http.post<any>(`${environment.authUrl}/users/login`, { username, password}, httpOptions)
       .pipe(map(receivedUser => {
@@ -43,8 +48,7 @@ export class AuthenticationService {
       .pipe(map(receivedUser => {
         console.log('updated user =' + receivedUser);
         localStorage.setItem('currentUser', JSON.stringify(receivedUser));
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
+        this.updateVariables();
         return receivedUser;
       }));
   }

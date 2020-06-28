@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AuthenticationService } from "../../services/authentication/authentication.service";
 import { LobbyService } from "../../services/lobby/lobby.service";
 import { Lobby } from "../../../models/Lobby";
+import { first } from "rxjs/operators";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-lobby-create',
@@ -20,13 +22,24 @@ export class LobbyCreateComponent implements OnInit {
     this.lobby = new Lobby();
   }
 
-  createLobby(){
-    console.log(this.lobby.name);
-    this.lobbyService.createLobby(this.lobby);
-    this.router.navigate(['/lobby/' + this.lobby.name])
+  createLobby() {
+    this.lobby.owner = this.authenticationService.userValue;
+    const user = this.authenticationService.userValue;
+    console.log(this.lobby);
+    this.lobbyService.createLobby(this.lobby)
+      .pipe(first())
+      .subscribe(data => {
+        console.log("here 2");
+        user.lobbyId = data.id;
+        user.lobbyName = data.name;
+        console.log("here 3");
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.authenticationService.updateVariables();
+        console.log("here 4");
+        this.router.navigate(['/lobby/' + this.lobby.name])
+      })
   }
 
   ngOnInit(): void {
-
   }
 }
