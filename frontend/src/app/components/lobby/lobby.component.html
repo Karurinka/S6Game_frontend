@@ -14,7 +14,7 @@
     <div class="card-header" style="text-align: center"> {{this.lobby.name}} messages</div>
     <div class="card-body">
       <div *ngFor="let message of cleanMessages">
-        <p>{{message}}</p>
+        <p>{{message.messageOwner}}: {{message.message}}</p>
       </div>
     </div>
   </div>

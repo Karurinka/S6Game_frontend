@@ -8,6 +8,7 @@ import {HelloMessage} from "../../../models/HelloMessage";
 import {CurseService} from "../../services/curse/curse.service";
 import {LobbyService} from "../../services/lobby/lobby.service";
 import {first} from "rxjs/operators";
+import {DisplayMessage} from "../../../models/DisplayMessage";
 
 @Component({
   selector: 'app-lobby',
@@ -22,7 +23,8 @@ export class LobbyComponent implements OnInit {
   findingLobby: Lobby;
   message: string;
   cleanMessage: string;
-  cleanMessages: string[] = [];
+  cleanMessages: DisplayMessage[] = [];
+  messageOwner: string;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -76,7 +78,11 @@ export class LobbyComponent implements OnInit {
       .subscribe(
       data => {
         this.cleanMessage = data;
-        this.cleanMessages.push(this.cleanMessage);
+        this.messageOwner = this.authenticationService.userValue.username;
+        let displayMessage = new DisplayMessage();
+        displayMessage.messageOwner = this.messageOwner;
+        displayMessage.message = this.cleanMessage;
+        this.cleanMessages.push(displayMessage);
       }
     )
   }
