@@ -2,9 +2,8 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from "../../../environments/environment";
-import { AuthenticationService } from "./authentication.service";
 import { BehaviorSubject, Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { AuthenticationService } from "../authentication/authentication.service";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -22,7 +21,7 @@ export class UserService {
               private authenticationService: AuthenticationService) { }
 
   getAll() {
-    return this.http.get<User[]>(`\`${environment.authUrl}/users`,httpOptions);
+    return this.http.get<User[]>(`${environment.authUrl}/users`,httpOptions);
   }
 
   register(user: User) {
@@ -32,5 +31,4 @@ export class UserService {
   delete(id: number) {
     return this.http.delete(`${environment.authUrl}/users/${id}`, httpOptions);
   }
-
 }

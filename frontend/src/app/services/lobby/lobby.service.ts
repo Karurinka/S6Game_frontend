@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Lobby} from "../../../models/Lobby";
-import {Router} from "@angular/router";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
+import { Lobby } from "../../../models/Lobby";
+import { Router } from "@angular/router";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from "../../../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({

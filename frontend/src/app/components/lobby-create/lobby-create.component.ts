@@ -27,7 +27,6 @@ export class LobbyCreateComponent implements OnInit {
     this.loading = true;
     this.lobby.owner = this.authenticationService.userValue;
     const user = this.authenticationService.userValue;
-    console.log(this.lobby);
     this.lobbyService.createLobby(this.lobby)
       .pipe(first())
       .subscribe(data => {

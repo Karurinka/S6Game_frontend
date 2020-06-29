@@ -3,7 +3,8 @@ import { User } from "./User";
 
 export class HelloMessage{
   id: number;
-  lobbyId: Lobby;
+  lobbyId: number;
+  lobbyName: string;
   messageOwner: User;
   message: string;
 }

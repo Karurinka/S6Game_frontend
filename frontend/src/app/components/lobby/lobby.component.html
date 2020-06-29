@@ -4,13 +4,8 @@
     <div class="card-body">
       <p>Send message </p>
       <div *ngIf="loading">
-        <form [formGroup]="chatForm" (ngSubmit)="sendMessage(chatForm.value)">
-          <div>
-            <input id="message" type="text" formControlName="message">
-          </div>
-          <br>
-          <button class="btn btn-primary">Send message </button>
-        </form>
+        <input type="text"  [(ngModel)]="message"> &nbsp;
+        <input type="button" class="btn btn-primary" value="Send message" (click)="sendMessage()" />
       </div>
     </div>
   </div>
@@ -18,7 +13,7 @@
   <div class="card border-primary mb-3 center-block" style="max-width: 60rem ">
     <div class="card-header" style="text-align: center"> {{this.lobby.name}} messages</div>
     <div class="card-body">
-      <div *ngFor="let message of webSocketAPI.messages">
+      <div *ngFor="let message of webSocketAPI.justMessages">
         <p>{{message}}</p>
       </div>
     </div>
@@ -27,8 +22,8 @@
   <div class="card border-primary mb-3 center-block" style="max-width: 60rem ">
     <div class="card-header" style="text-align: center"> Find lobby </div>
     <div class="card-body">
+      <p>Find lobby</p>
       <div>
-        <label> Lobby : </label> &nbsp;
         <input type="text" [(ngModel)]="findingLobby.name"> &nbsp;
         <input type="button" class="btn btn-primary" value="Find lobby" (click)="findLobby()" />
       </div>
