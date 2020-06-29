@@ -10,7 +10,6 @@ export class WebSocketAPI{
   topic = '/topic/greetings/';
   stompClient: any;
   public messages: HelloMessage[] = [];
-  public justMessages: string[] = [];
   lobbyComponent: LobbyComponent;
   constructor(appComponent: LobbyComponent,
               private authenticationService: AuthenticationService){

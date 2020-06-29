@@ -7,7 +7,6 @@ import {FormBuilder} from "@angular/forms";
 import {HelloMessage} from "../../../models/HelloMessage";
 import {CurseService} from "../../services/curse/curse.service";
 import {LobbyService} from "../../services/lobby/lobby.service";
-import {HttpClient} from "@angular/common/http";
 import {first} from "rxjs/operators";
 
 @Component({
@@ -22,6 +21,7 @@ export class LobbyComponent implements OnInit {
   loading = false;
   findingLobby: Lobby;
   message: string;
+  cleanMessage: string;
   cleanMessages: string[] = [];
 
   constructor(private formBuilder: FormBuilder,
@@ -62,28 +62,27 @@ export class LobbyComponent implements OnInit {
     helloMessage.messageOwner = user;
     helloMessage.lobbyName = this.lobby.name;
     this.checkCurseWords(helloMessage.message);
-    console.log(helloMessage.message);
     this.webSocketAPI._send(helloMessage);
   }
 
   findLobby() {
-    console.log(this.findingLobby);
     this.router.navigate(['/lobby/' + this.findingLobby.name]);
     this.ngOnInit();
   }
 
-  checkCurseWords(cleanMessage: string): string {
-      let checkedMessage = cleanMessage;
-      this.curseService.checkCurseWords(checkedMessage)
-        .pipe(first())
-        .subscribe(data => {
-        checkedMessage = data;
-      })
-      return cleanMessage;
+  checkCurseWords(message) {
+    this.curseService.checkCurseWords(JSON.stringify(message))
+      .pipe(first())
+      .subscribe(
+      data => {
+        this.cleanMessage = data;
+        this.cleanMessages.push(this.cleanMessage);
+      }
+    )
   }
 
-  getLobby(){
-    this.lobbyService.getLobby(this.lobby.name).subscribe( data =>{
+  getLobby() {
+    this.lobbyService.getLobby(this.lobby.name).subscribe(data => {
       this.lobby = data;
     })
   }

@@ -13,7 +13,7 @@
   <div class="card border-primary mb-3 center-block" style="max-width: 60rem ">
     <div class="card-header" style="text-align: center"> {{this.lobby.name}} messages</div>
     <div class="card-body">
-      <div *ngFor="let message of webSocketAPI.justMessages">
+      <div *ngFor="let message of cleanMessages">
         <p>{{message}}</p>
       </div>
     </div>
